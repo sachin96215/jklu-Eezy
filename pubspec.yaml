@@ -13,6 +13,7 @@ dependencies:
   font_awesome_flutter: ^10.9.1
   url_launcher: ^6.3.2
   cupertino_icons: ^1.0.8
+  device_preview: ^1.1.0
 
 dev_dependencies:
   flutter_test:

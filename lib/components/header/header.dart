@@ -14,23 +14,36 @@ class Header extends StatelessWidget {
       child: SafeArea(
         bottom: false,
         child: Container(
-          height: 80,
+          height: 70,
           padding: EdgeInsets.symmetric(
-            horizontal: isWide ? 40.0 : 20.0,
-            vertical: 10.0,
+            horizontal: isWide ? 24.0 : 12.0,
           ),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: const Color.fromARGB(255, 221, 221, 221),
-              width: 1.0,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            border: Border(
+              bottom: BorderSide(
+                  color: Color.fromARGB(255, 230, 230, 230), width: 1),
             ),
           ),
           child: Row(
             children: [
-              const SizedBox(width: 10),
+              // ── Hamburger menu ───────────────────────────────────
+              Builder(builder: (innerCtx) {
+                return IconButton(
+                  icon: const Icon(Icons.menu,
+                      color: Color.fromARGB(255, 3, 59, 105), size: 24),
+                  onPressed: () {
+                    Scaffold.of(innerCtx).openDrawer();
+                  },
+                  tooltip: 'Menu',
+                );
+              }),
 
-              // 🔹 Logo + App Name
+              const SizedBox(width: 4),
+
+              // ── Logo + App Name ──────────────────────────────────
               InkWell(
+                borderRadius: BorderRadius.circular(8),
                 onTap: () {
                   Navigator.pushReplacement(
                     context,
@@ -40,29 +53,29 @@ class Header extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      height: 38,
-                      width: 38,
+                      height: 36,
+                      width: 36,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 3, 66, 117),
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Center(
                         child: Text(
                           'JK',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 8),
                     const Text(
                       'JKLU Eezy',
                       style: TextStyle(
                         color: Color.fromARGB(255, 3, 59, 105),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -72,18 +85,39 @@ class Header extends StatelessWidget {
 
               const Spacer(),
 
-              // 🔹 Notification Icon
-              IconButton(
-                icon: const Icon(Icons.notifications_outlined, size: 22),
-                onPressed: () {},
+              // ── Notification Bell ────────────────────────────────
+              Stack(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.notifications_outlined,
+                        color: Colors.black87, size: 22),
+                    onPressed: () {},
+                  ),
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: Container(
+                      width: 16,
+                      height: 16,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 3, 59, 105),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Center(
+                        child: Text('5',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 9)),
+                      ),
+                    ),
+                  ),
+                ],
               ),
 
-              const SizedBox(width: 10),
+              const SizedBox(width: 4),
 
-              // 🔹 Profile Icon — shows static admin info
-              IconButton(
-                icon: const Icon(Icons.person_outline, size: 22),
-                onPressed: () {
+              // ── Profile Avatar ───────────────────────────────────
+              GestureDetector(
+                onTap: () {
                   showDialog(
                     context: context,
                     builder: (context) => const ProfilePopup(
@@ -92,7 +126,24 @@ class Header extends StatelessWidget {
                     ),
                   );
                 },
+                child: Container(
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 3, 59, 105),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Center(
+                    child: Text('AS',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13)),
+                  ),
+                ),
               ),
+
+              const SizedBox(width: 4),
             ],
           ),
         ),
@@ -101,15 +152,12 @@ class Header extends StatelessWidget {
   }
 }
 
+// ── Profile Popup ────────────────────────────────────────────────────────────
 class ProfilePopup extends StatelessWidget {
   final String username;
   final String email;
 
-  const ProfilePopup({
-    super.key,
-    required this.username,
-    required this.email,
-  });
+  const ProfilePopup({super.key, required this.username, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -121,20 +169,27 @@ class ProfilePopup extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CircleAvatar(
-              radius: 30,
-              backgroundColor: Colors.blue,
-              child: Icon(Icons.person, size: 40, color: Colors.white),
+            Container(
+              width: 60,
+              height: 60,
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 3, 59, 105),
+                  shape: BoxShape.circle),
+              child: const Center(
+                child: Text('AS',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+              ),
             ),
-            const SizedBox(height: 15),
-            Text(
-              username,
-              style:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 12),
+            Text(username,
+                style: const TextStyle(
+                    fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 4),
             Text(email, style: const TextStyle(color: Colors.grey)),
-            const Divider(height: 30),
+            const Divider(height: 24),
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text('Profile'),
@@ -145,16 +200,16 @@ class ProfilePopup extends StatelessWidget {
               title: const Text('Settings'),
               onTap: () => Navigator.pop(context),
             ),
-            const Divider(height: 30),
+            const Divider(height: 8),
             ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
+              leading: const Icon(Icons.logout, color: Colors.red),
+              title: const Text('Logout',
+                  style: TextStyle(color: Colors.red)),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const LoginPage()),
+                  MaterialPageRoute(builder: (_) => const LoginPage()),
                 );
               },
             ),

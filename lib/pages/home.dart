@@ -8,6 +8,11 @@ import 'package:jklu_eezy/pages/mess.dart';
 import 'package:jklu_eezy/pages/quick_actions.dart';
 import 'package:jklu_eezy/pages/lost_n_found.dart';
 import 'package:jklu_eezy/pages/time_table.dart';
+import 'package:jklu_eezy/pages/study_materials.dart';
+import 'package:jklu_eezy/pages/bus_routes.dart';
+import 'package:jklu_eezy/pages/laundry.dart';
+import 'package:jklu_eezy/pages/complaints.dart';
+import 'package:jklu_eezy/components/app_drawer.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -16,6 +21,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(249, 255, 255, 255),
+      drawer: const AppDrawer(activeRoute: 'dashboard'),
       body: Column(
         children: [
           // ✅ Header stays fixed
@@ -189,7 +195,9 @@ class Home extends StatelessWidget {
                     title: 'Study Materials',
                     description: 'Papers, e-books, and resources',
                     icon: Icons.menu_book_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const StudyMaterialsPage()));
+                    },
                   ),
                   ServiceBloc(
                     title: 'Lost & Found',
@@ -221,19 +229,25 @@ class Home extends StatelessWidget {
                     title: 'Bus Routes',
                     description: 'Transport schedules',
                     icon: Icons.directions_bus_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BusRoutesPage()));
+                    },
                   ),
                   ServiceBloc(
                     title: 'Laundry',
                     description: 'Get notified when clothes are ready',
                     icon: Icons.local_laundry_service_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LaundryPage()));
+                    },
                   ),
                   ServiceBloc(
                     title: 'Complaints',
                     description: 'Lodge complaints regarding campus issues',
                     icon: Icons.report_problem_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ComplaintsPage()));
+                    },
                   ),
                   ServiceBloc(
                     title: 'Quick Actions',

@@ -11,6 +11,7 @@ final List<Map<String, dynamic>> _staticItems = [
     'contact': '+91 98765 11111',
     'color': Colors.red,
     'icon': Icons.water_drop_outlined,
+    'image': 'https://picsum.photos/seed/bottle/200',
   },
   {
     'title': 'Scientific Calculator (Casio FX-991)',
@@ -21,6 +22,7 @@ final List<Map<String, dynamic>> _staticItems = [
     'contact': '+91 98765 22222',
     'color': Colors.green,
     'icon': Icons.calculate_outlined,
+    'image': 'https://picsum.photos/seed/calc/200',
   },
   {
     'title': 'Black Wallet',
@@ -31,6 +33,7 @@ final List<Map<String, dynamic>> _staticItems = [
     'contact': '+91 98765 33333',
     'color': Colors.red,
     'icon': Icons.account_balance_wallet_outlined,
+    'image': 'https://picsum.photos/seed/wallet/200',
   },
   {
     'title': 'Wireless Earbuds (OnePlus)',
@@ -41,6 +44,7 @@ final List<Map<String, dynamic>> _staticItems = [
     'contact': '+91 98765 44444',
     'color': Colors.green,
     'icon': Icons.headset_outlined,
+    'image': 'https://picsum.photos/seed/earbuds/200',
   },
   {
     'title': 'Laptop Charger (HP 65W)',
@@ -51,6 +55,7 @@ final List<Map<String, dynamic>> _staticItems = [
     'contact': '+91 98765 55555',
     'color': Colors.red,
     'icon': Icons.power_outlined,
+    'image': 'https://picsum.photos/seed/charger/200',
   },
   {
     'title': 'Student ID Card — Rahul Sharma (22BTECH001)',
@@ -61,6 +66,7 @@ final List<Map<String, dynamic>> _staticItems = [
     'contact': 'Security Office: +91 98765 43250',
     'color': Colors.green,
     'icon': Icons.badge_outlined,
+    'image': 'https://picsum.photos/seed/idcard/200',
   },
   {
     'title': 'Blue Umbrella',
@@ -71,6 +77,7 @@ final List<Map<String, dynamic>> _staticItems = [
     'contact': '+91 98765 66666',
     'color': Colors.red,
     'icon': Icons.umbrella_outlined,
+    'image': 'https://picsum.photos/seed/umbrella/200',
   },
   {
     'title': 'Textbook — Engineering Mathematics Vol 2',
@@ -81,6 +88,7 @@ final List<Map<String, dynamic>> _staticItems = [
     'contact': 'Library Desk: +91 98765 43230',
     'color': Colors.green,
     'icon': Icons.menu_book_outlined,
+    'image': 'https://picsum.photos/seed/textbook/200',
   },
 ];
 
@@ -262,89 +270,111 @@ class _LostNFoundState extends State<LostNFound> {
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (item['image'] != null)
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(13),
+                topRight: Radius.circular(13),
               ),
-              child: Icon(item['icon'] as IconData, color: color, size: 26),
+              child: Image.network(
+                item['image'],
+                width: double.infinity,
+                height: 140,
+                fit: BoxFit.cover,
+              ),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          item['title'],
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: color,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          isLost ? 'LOST' : 'FOUND',
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  const SizedBox(height: 6),
-                  Text(item['description'],
-                      style: TextStyle(color: Colors.grey[600], fontSize: 13)),
-                  const SizedBox(height: 8),
-                  Row(
+                  child: Icon(item['icon'] as IconData, color: color, size: 26),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.location_on_outlined,
-                          size: 14, color: Colors.grey[500]),
-                      const SizedBox(width: 4),
-                      Text(item['location'],
-                          style: TextStyle(
-                              color: Colors.grey[500], fontSize: 12)),
-                      const SizedBox(width: 12),
-                      Icon(Icons.calendar_today_outlined,
-                          size: 14, color: Colors.grey[500]),
-                      const SizedBox(width: 4),
-                      Text(item['date'],
-                          style: TextStyle(
-                              color: Colors.grey[500], fontSize: 12)),
-                    ],
-                  ),
-                  const SizedBox(height: 6),
-                  Row(
-                    children: [
-                      Icon(Icons.phone_outlined,
-                          size: 14, color: color),
-                      const SizedBox(width: 4),
-                      Text(item['contact'],
-                          style: TextStyle(
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              item['title'],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
                               color: color,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600)),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              isLost ? 'LOST' : 'FOUND',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Text(item['description'],
+                          style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Icon(Icons.location_on_outlined,
+                              size: 14, color: Colors.grey[500]),
+                          const SizedBox(width: 4),
+                          Expanded(
+                            child: Text(item['location'],
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: Colors.grey[500], fontSize: 12)),
+                          ),
+                          const SizedBox(width: 12),
+                          Icon(Icons.calendar_today_outlined,
+                              size: 14, color: Colors.grey[500]),
+                          const SizedBox(width: 4),
+                          Text(item['date'],
+                              style: TextStyle(
+                                  color: Colors.grey[500], fontSize: 12)),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Icon(Icons.phone_outlined,
+                              size: 14, color: color),
+                          const SizedBox(width: 4),
+                          Text(item['contact'],
+                              style: TextStyle(
+                                  color: color,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600)),
+                        ],
+                      ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
