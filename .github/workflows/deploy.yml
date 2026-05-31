@@ -29,8 +29,8 @@ jobs:
 
       - name: Build Flutter Web
         # base-href must match: https://<username>.github.io/<repo-name>/
-        # Change "JKLUEesy_resume" below to your actual GitHub repo name
-        run: flutter build web --release --base-href "/JKLUEesy_resume/"
+        # Change "jklu-Eezy" below to your actual GitHub repo name
+        run: flutter build web --release --base-href "/jklu-Eezy/"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
