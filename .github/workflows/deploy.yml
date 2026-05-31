@@ -6,11 +6,6 @@ on:
       - main
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -22,7 +17,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.32.0'
+          flutter-version: '3.24.0'
           channel: 'stable'
           cache: true
 
@@ -31,12 +26,18 @@ jobs:
 
       - name: Build Flutter Web
         # base-href must match: https://<username>.github.io/<repo-name>/
-        # Change "jklu-Eezy" below to your actual GitHub repo name
         run: flutter build web --release --base-href "/jklu-Eezy/"
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build/web
-          publish_branch: gh-pages
+      - name: Copy web build to docs folder
+        run: |
+          rm -rf docs
+          mkdir -p docs
+          cp -r build/web/* docs/
+
+      - name: Commit and push docs folder
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add docs/
+          git commit -m "Deploy: Update Flutter web build" || echo "No changes to commit"
+          git push origin main
