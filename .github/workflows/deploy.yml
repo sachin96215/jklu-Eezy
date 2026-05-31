@@ -26,26 +26,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.24.0'
-          channel: 'stable'
-          cache: true
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build Flutter Web
-        run: flutter build web --release --base-href "/jklu-Eezy/"
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload artifact
+      - name: Upload artifact from docs folder
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'build/web'
+          path: 'docs'
 
       - name: Deploy to GitHub Pages
         id: deployment
